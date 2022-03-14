@@ -336,3 +336,11 @@ print(np.sort(list))
 # I: LIST CHECKED
 # O: 0. Clean my room
 # -------------
+import math
+a = -8
+b = -1
+c = -9
+d = 5
+
+result = math.sqrt(((a - b ) ** 2) + ((c - d) ** 2))
+print(result)
