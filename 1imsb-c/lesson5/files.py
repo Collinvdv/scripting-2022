@@ -1,5 +1,5 @@
 from pathlib import Path
-import os
+import os, shutil, zipfile
 
 # pythonFolderPath = Path(r"/Users/collinvandervorst/Desktop/python_files/python.txt")
 
@@ -24,7 +24,7 @@ import os
 # file.close()
 
 # reading
-file = open("log.txt", "r")
+# file = open("log.txt", "r")
 # fullText = file.read() # volledige text terug .ReadToEnd()
 # firstFiveChars = file.read()
 # print(firstFiveChars)
@@ -52,27 +52,42 @@ file = open("log.txt", "r")
 # I: /Users/collinvandervorst/School/2021/scripting/exercices/log2.txt
 # O: file bestaat niet
 
-# Ask for path
-pathString = input("Give me a filename")
-pathObject = Path(pathString)
+# # Ask for path
+# pathString = input("Give me a filename")
+# pathObject = Path(pathString)
 
-# Ask if file exists
-if pathObject.exists() and pathObject.is_file :
-    # Ask which line you have remove
-    lineNumber = int(input("While line to you want remove?")) # fe: 3
+# # Ask if file exists
+# if pathObject.exists() and pathObject.is_file :
+#     # Ask which line you have remove
+#     lineNumber = int(input("While line to you want remove?")) # fe: 3
 
-    # read the file 
-    file = open(pathString, "r")
-    allLines = file.readlines()
-    file.close()
+#     # read the file 
+#     file = open(pathString, "r")
+#     allLines = file.readlines()
+#     file.close()
 
-    # remove line 
-    allLines.pop(lineNumber - 1) # del allLines[lineNumber - 1]
+#     # remove line 
+#     allLines.pop(lineNumber - 1) # del allLines[lineNumber - 1]
 
-    # output to file
-    file = open(pathString, "w")
-    for line in allLines:
-        file.write(line)
-    file.close
-else:
-    print("hij bestaat niet")
+#     # output to file
+#     file = open(pathString, "w")
+#     for line in allLines:
+#         file.write(line)
+#     file.close()
+# else:
+#     print("hij bestaat niet")
+
+if Path("logs").exists() == False:
+    os.mkdir("logs")
+
+# shutil.copy(Path("log.txt"), Path("logs/copy_log.txt"))
+# shutil.move("log.txt", "logs/moved_log.txt")
+# shutil.rmtree("logs")
+
+# newzip = zipfile.ZipFile("logs.zip", "w")
+# newzip.write("logs/log.txt")
+# newzip.close()
+
+newzip = zipfile.ZipFile("logs.zip")
+newzip.extractall()
+newzip.close()
