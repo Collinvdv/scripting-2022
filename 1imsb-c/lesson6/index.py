@@ -1,12 +1,12 @@
 # # Remove non - alpha chars
-# def isChar(char):
-#     ascciValue = ord(char)
+def isChar(char):
+    ascciValue = ord(char)
 
-#     if (ascciValue >= 48 and ascciValue <= 57) or (ascciValue >= 65 and ascciValue <= 90) or (ascciValue >= 97 and ascciValue <= 122):
-#         return True
+    if (ascciValue >= 48 and ascciValue <= 57) or (ascciValue >= 65 and ascciValue <= 90) or (ascciValue >= 97 and ascciValue <= 122):
+        return True
 
-#     # non alpahnumeric
-#     return False
+    # non alpahnumeric
+    return False
 
 # # matrix
 # dimensions = input("Give me x and y:").split() # fe: 7 3 => ['7', '3']
@@ -31,15 +31,15 @@
 # finalResult = ""
 # prevCharIsChar = False
 
-# for char in phrase:
-#     if (isChar(char)):
-#         finalResult += char
-#     else:
-#         if prevCharIsChar:
-#             finalResult += " "
+for char in phrase:
+    if (isChar(char)):
+        finalResult += char
+    else:
+        if prevCharIsChar:
+            finalResult += " "
 
-#     # save the previous char for the next loop
-#     prevCharIsChar = isChar(char)
+    # save the previous char for the next loop
+    prevCharIsChar = isChar(char)
 
 # import json
 # import requests
