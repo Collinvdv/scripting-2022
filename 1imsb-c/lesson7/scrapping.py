@@ -105,42 +105,43 @@ extremahomepageBS = BeautifulSoup(request.text, "html.parser")
 # 2th place - 49 points
 # ..
 
-url = "https://www.ultratop.be/nl/ultratop50/2022/20220101"
-request = requests.get(url)
-weeksBS= BeautifulSoup(request.text, "html.parser")
-dates = weeksBS.find("select", { "id" : "chartdate"}).find_all("option")
-
-weeks = []
-for week in dates:
-    weeks.append(week.get("value"))
-
-print(weeks)
-
-scoreboard = {}
-
-for week in weeks:
-    url = "https://www.ultratop.be/nl/ultratop50/2022/" + week
-    print("Call naar " + week)
+for year in range(2018, 2022):
+    url = "https://www.ultratop.be/nl/ultratop50/" + str(year) + "/"
     request = requests.get(url)
+    weeksBS= BeautifulSoup(request.text, "html.parser")
+    dates = weeksBS.find("select", { "id" : "chartdate"}).find_all("option")
 
-    latestSongBS = BeautifulSoup(request.text, "html.parser")
-    charts = latestSongBS.find_all("div", { "class" : "chart_title"})
+    weeks = []
+    for week in dates:
+        weeks.append(week.get("value"))
 
-    chartIndex = 0
+    # print(weeks)
+    print("-----", year)
+    scoreboard = {}
 
-    for chart in charts:
-        artistName = chart.find("a").find("b").get_text()
-        track = chart.find("a").get_text().replace(artistName, "")
+    for week in weeks:
+        url = "https://www.ultratop.be/nl/ultratop50/" + str(year) + "/" + week
+        print("Call naar " + week)
+        request = requests.get(url)
 
-        fulltrack = artistName + " - " + track
+        latestSongBS = BeautifulSoup(request.text, "html.parser")
+        charts = latestSongBS.find_all("div", { "class" : "chart_title"})
 
-        if fulltrack in scoreboard.keys():
-            scoreboard[fulltrack] = scoreboard[fulltrack] + (50 - chartIndex)
-        else:
-            scoreboard[fulltrack] = 50 - chartIndex
+        chartIndex = 0
 
-        chartIndex+=1
+        for chart in charts:
+            artistName = chart.find("a").find("b").get_text()
+            track = chart.find("a").get_text().replace(artistName, "")
+
+            fulltrack = artistName + " - " + track
+
+            if fulltrack in scoreboard.keys():
+                scoreboard[fulltrack] = scoreboard[fulltrack] + (50 - chartIndex)
+            else:
+                scoreboard[fulltrack] = 50 - chartIndex
+
+            chartIndex+=1
 
 
-winner = max(scoreboard, key=scoreboard.get)
-print(winner)
+    winner = max(scoreboard, key=scoreboard.get)
+    print(winner)
